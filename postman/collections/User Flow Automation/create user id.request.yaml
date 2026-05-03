@@ -1,0 +1,29 @@
+$kind: http-request
+name: create user id
+url: "{{baseUrl}}/api/users"
+method: POST
+headers:
+  - key: x-api-key
+    value: regres-free-v1
+body:
+  type: json
+  content: |-
+    {
+        "name": "Morpheus",
+        "job": "leader"
+    }
+auth:
+  credentials:
+    - key: token
+      value: "{{token}}"
+  type: bearer
+scripts:
+  - type: afterResponse
+    code: |-
+      const response = pm.response.json();
+      pm.environment.set("userId", response.id);
+      pm.test("User ID is stored", ()=> {
+          pm.expect(response.id).to.not.be.undefined;
+      });
+    language: text/javascript
+order: 4376493992889654

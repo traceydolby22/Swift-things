@@ -1,0 +1,12 @@
+name: MyNewEnvironment
+values:
+  - key: baseUrl
+    enabled: true
+    value: ''
+  - key: token
+    enabled: true
+    value: ''
+  - key: userId
+    enabled: true
+    value: ''
+color: 240

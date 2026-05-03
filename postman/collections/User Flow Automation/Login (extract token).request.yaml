@@ -1,0 +1,29 @@
+$kind: http-request
+name: Login (extract token)
+url: "{{baseUrl}}/api/login"
+method: POST
+headers:
+  x-api-key: regres-free-v1
+body:
+  type: json
+  content: |-
+    {
+        "email": "eve.holt@regres.in",
+        "password": "cityslicka"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      const response = pm.response.json();
+      if (response.token) {
+          pm.environment.set("token", response.token);
+      }
+      pm.test("Response has 'token' property", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData).to.have.property('token');
+          pm.environment.set('token', jsonData.token);
+          console.log('token value is ; ', jsonData.token)
+          console.log('token value is ; ', pm.environment.get('token'))
+      });
+    language: text/javascript
+order: 1776959489271

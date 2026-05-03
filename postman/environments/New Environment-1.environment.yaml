@@ -1,0 +1,11 @@
+name: New Environment
+values:
+  - key: token
+    enabled: true
+    value: ''
+  - key: userID
+    enabled: true
+    value: ''
+  - key: baseUrl
+    enabled: true
+    value: ''
