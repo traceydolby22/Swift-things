@@ -10,10 +10,14 @@ import FoundationModels // large language model AI
 
 struct ContentView: View {
     private var largeLanguageModel = SystemLanguageModel(guardrails: .default)// assess the large language model check AI availablility
-    private var session = LanguageModelSession()
+    private var session: any LanguageModelSessionProtocol
     
     @State private var response: String = ""
     @State private var isLoading: Bool = false
+    
+    init(session: any LanguageModelSessionProtocol = RealLanguageModelSession()) {
+        self.session = session
+    }
     
     var body: some View {
         VStack {
@@ -55,7 +59,7 @@ struct ContentView: View {
                     let prompt = "Say Hello in a fun way."
                     do {
                         let replay = try await session.respond(to: prompt)
-                        response = replay.content
+                        response = replay
                     } catch {
                         response = "Failed to get response: \(error.localizedDescription)"
                     }
